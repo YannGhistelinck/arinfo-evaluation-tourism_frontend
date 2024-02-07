@@ -1,0 +1,30 @@
+@use '../utils/_variables' as *
+
+.adminHeader
+    width: 96%
+    height: $adminHeader
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    background-color: $adminColor1
+    color: white
+    font-size: 15px
+    padding: 0 2%
+    &__name
+        display: flex
+        gap: 10px
+    &__link
+        color: white
+        &:hover
+            background-color: white
+            color: $adminColor1
+    &__logout
+        background-color: white
+        color: $adminColor1
+        border-radius: 2px
+        padding: 0 5px
+        &:hover
+            cursor: pointer
+            background-color: $adminColor1
+            color: white

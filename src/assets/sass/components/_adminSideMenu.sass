@@ -1,0 +1,23 @@
+@use '../utils/_variables' as *
+
+
+.adminSideMenu
+    height: calc( 100vh - $adminHeader )
+    width: 150px
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 15px
+    background-color: $adminColor1
+    color: white
+    &__title
+    &__adminPart
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 15px
+        margin-bottom: 25px
+    &__link
+        &:hover
+            cursor: pointer
+            font-weight: bold
