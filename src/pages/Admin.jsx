@@ -6,17 +6,20 @@ import {AdminContext } from '../contexts/AdminContext'
 import { API_FUNCTIONS } from '../utils/apiFunctions'
 
 import AdminSideMenu from '../components/AdminSideMenu'
-import AdminRedactors from '../components/AdminRedactors'
-import AdminPlaces from '../components/AdminPlaces'
-import AdminPublications from '../components/AdminPublications'
-import AdminCategories from '../components/AdminCategories'
-import AdminSubcategories from '../components/AdminSubcategories'
+import AdminRedactors from '../components/adminSubpages/AdminRedactors'
+import AdminPlaces from '../components/adminSubpages/AdminPlaces'
+import AdminPublications from '../components/adminSubpages/AdminPublications'
+import AdminCategories from '../components/adminSubpages/AdminCategories'
+import AdminSubcategories from '../components/adminSubpages/AdminSubcategories'
 
 function Admin() {
     const navigate = useNavigate()
     const{token, setToken, setUrl, setIsAdmin, isAdmin, categories, user, setUser}=useContext(GlobalContext)
     const [currentAdminContent, setCurrentAdminContent]=useState(localStorage.getItem('currentAdminContent') || 'redactors')
     
+    const [publications, setPublications] = useState([])
+    const [images, setImages] = useState([])
+    const [redactors, setRedactors] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
 
     setUrl("admin")
@@ -44,9 +47,24 @@ function Admin() {
         }
     }
 
+    const loadData = async()=>{
+        try{
+            const[
+                redactorsData,
+            ] = await Promise.all([
+                API_FUNCTIONS.allUsers(token)
+            ])
+            setRedactors(redactorsData)
+
+        }catch(errors){
+            console.error(errors)
+        }
+    }
+
 
     useEffect(() => {
         isConnected(localStorage.getItem("token"))
+        loadData()
         setIsLoaded(true)
     }, [token])
 
@@ -54,15 +72,15 @@ function Admin() {
 
 
   return (
-    <AdminContext.Provider value={{currentAdminContent, setCurrentAdminContent}}>
+    <AdminContext.Provider value={{currentAdminContent, setCurrentAdminContent, redactors, setRedactors, publications, setPublications, images, setImages}}>
         {isLoaded ? 
         <div className='dashboard'>
             <AdminSideMenu/>
-            {currentAdminContent === 'redactors' ? <AdminRedactors/> : null}
-            {currentAdminContent === 'places' ? <AdminPlaces/> : null}
-            {currentAdminContent === 'publications' ? <AdminPublications/> : null}
-            {currentAdminContent === 'categories' ? <AdminCategories/> : null}
-            {currentAdminContent === 'subcategories' ? <AdminSubcategories/> : null}
+            {currentAdminContent === 'redactors' && <AdminRedactors/> }
+            {currentAdminContent === 'places' && <AdminPlaces/> }
+            {currentAdminContent === 'publications' && <AdminPublications/> }
+            {currentAdminContent === 'categories' && <AdminCategories/> }
+            {currentAdminContent === 'subcategories' && <AdminSubcategories/> }
             
         </div>
         :

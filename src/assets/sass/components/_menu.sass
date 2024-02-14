@@ -1,0 +1,75 @@
+@use '../utils/_variables' as *
+
+.menu
+    width: 100%
+    transition: 0.5s ease-in-out
+    &__container
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+        gap: 15px
+    &__link
+        font-size: 18px
+        font-weight: 900
+        color: white
+        overflow: hidden
+        display: flex
+        flex-direction: column
+        align-items: center
+        &:hover
+            color: $color1
+        &:hover .menu__link__square
+            width: 8px
+            height: 8px
+            transition: 0.2s ease-in-out
+        &__square
+            width: 0
+            height: 0
+            margin: auto
+            background-color: $color1
+            transition: 0.2s ease-in-out
+            position: absolute
+            top: 70px
+
+
+.submenu
+    transition: 0.5s ease-in-out
+    width: 100%
+    height: calc( 100vh - 100px )
+    background-color: $color2
+    position: fixed
+    z-index: 10
+    top: -100vh
+    left: 0
+    border-top: 0.5px solid $textColorLight
+    display: flex
+    flex-direction: column
+    align-items: center
+    &__container
+        width: $containerSize
+        display: grid
+        gap: 40px
+        grid-template-columns: 1fr 1fr
+        &__link
+            font-size: 40px
+            margin-bottom: 40px
+            color: $textColorLight
+            opacity: 0.5
+            &:hover
+                opacity: 1
+
+    &__closeButton
+        width: 40px
+        height: 40px
+        font-size: 25px
+        margin-top: 25px
+        margin-right: 25px
+        align-self: end
+        border: none
+        border-radius: 50%
+        background-color: $textColorLight
+        color: $textColorDark
+        &:hover
+            color: $color1
+            cursor: pointer

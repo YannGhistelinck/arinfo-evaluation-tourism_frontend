@@ -1,14 +1,18 @@
 import React, {useContext} from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { GlobalContext } from '../contexts/GlobalContext'
 
+import Carousel from '../components/Carousel'
+
 function Home() {
     const {setUrl} = useContext(GlobalContext)
-    setUrl('/')
+    const location = useLocation()
+    setUrl(location.pathname)
     
   return (
-    <div>
-        Home
+    <div className='mainContainer'>
+      <Carousel/>
 
     </div>
   )

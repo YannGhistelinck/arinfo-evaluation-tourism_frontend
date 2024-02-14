@@ -6,12 +6,15 @@ import './assets/sass/main.sass'
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
+import Places from "./pages/Places";
+import Place from "./pages/Place";
 
 
 //COMPONENTS
 import Header from "./components/Header";
 import Footer from "./components/Footer"
 import AdminHeader from "./components/AdminHeader";
+import Submenu from "./components/Submenu";
 
 //FILES
 import {GlobalContext} from './contexts/GlobalContext'
@@ -21,10 +24,13 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false)
 
   const [token, setToken] = useState("")
-  const [url, setUrl] = useState("")
+  const [url, setUrl] = useState("/")
   const [isAdmin, setIsAdmin] = useState(false)
   const [user, setUser] = useState([])
   const [categories, setCategories] = useState([])
+  const [subcategories, setSubcategories] = useState([])
+  const [places, setPlaces] = useState([])
+  const [selectedPlace, setSelectedPlace] = useState(null)
  
 
   const isConnected = async(data) => {
@@ -50,11 +56,17 @@ function App() {
     try{
       const [
         categoriesData,
+        subcategoriesData,
+        placesData,
       ] = await Promise.all([
         API_FUNCTIONS.allCategories(),
+        API_FUNCTIONS.allSubcategories(),
+        API_FUNCTIONS.allPlaces(),
       ])
 
       setCategories(categoriesData)
+      setSubcategories(subcategoriesData)
+      setPlaces(placesData.data)
     }catch(errors){
       console.error(errors)
     }finally{
@@ -69,20 +81,22 @@ function App() {
     
   }, []) 
 
- 
-  
 
   return (
-    <GlobalContext.Provider value={{token, setToken, setUrl, user, setUser, isAdmin, setIsAdmin, url, categories, setCategories}}>
+    <GlobalContext.Provider value={{token, setToken, setUrl, user, setUser, isAdmin, setIsAdmin, url, categories, setCategories, subcategories, setSubcategories, places, setPlaces, selectedPlace, setSelectedPlace}}>
       {
         isLoaded ? 
         <Router>
         {isAdmin ? <AdminHeader/> : null}
         { url !== "admin" ? <Header/> : null}
+        { url !== "admin" ? <Submenu/> : null}
         <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/lieux" element={<Places/>} />
+          <Route path="/lieu" element={<Place/>} />
           <Route path="/admin/*" element={<Admin/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/*" element={<Home/>} />
         </Routes>
 
         {url !== "admin" ? <Footer/> : null}

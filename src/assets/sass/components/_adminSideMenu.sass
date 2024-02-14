@@ -3,13 +3,16 @@
 
 .adminSideMenu
     height: calc( 100vh - $adminHeader )
-    width: 150px
+    min-width: 200px
     display: flex
     flex-direction: column
     align-items: center
     gap: 15px
     background-color: $adminColor1
     color: white
+    position: sticky
+    left: 0
+    top: $adminHeader
     &__title
     &__adminPart
         display: flex

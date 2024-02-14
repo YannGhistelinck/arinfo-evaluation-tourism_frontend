@@ -1,0 +1,65 @@
+@use '../utils/_variables' as *
+
+
+.carousel
+    width: 100vw
+    height: 100vh
+    &__img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        
+    &__layout
+        width: 100%
+        height: 100vh
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0), rgba(0,0,0,0.6))
+        position: absolute
+        top: 0
+        &__content
+            width: 1200px
+            margin: 71vh auto 0 auto
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            align-items: end
+            &__texts
+                display: flex
+                flex-direction: column
+                color: $textColorLight
+                &__subtitle
+                    font-size: 3.75rem
+                    margin-bottom: -30px
+                &__title
+                    font-size: 8.75rem
+                    font-weight: 800
+                &__point
+                    color: $color1
+                    font-size: 10rem
+
+            &__buttons
+                display: flex
+                flex-direction: row
+                gap: 20px
+                margin-bottom: 3.5vh
+                &__btn
+                    width: 60px
+                    height: 60px
+                    border-radius: 50%
+                    background-color: $textColorLight
+                    color: $textColorDark
+                    display: flex
+                    justify-content: center
+                    align-items: start
+                    font-size: 40px
+                    &:first-of-type::before
+                        content:"←"
+                    &:last-of-type::before
+                        content:"→"
+                    &:hover
+                        color: $color1
+                        cursor: pointer
+                    &--grey
+                        opacity: 0.5
+                        &:hover
+                            cursor: default
+                            color: $textColorDark

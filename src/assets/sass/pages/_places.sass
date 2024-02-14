@@ -1,0 +1,106 @@
+@use '../utils/_variables' as *
+
+.placesDescription
+    font-size: 24px
+    font-weight: 800
+    margin-bottom: 40px
+
+.placesContainer
+    height: calc( ( 450px * 2 ) + 20px )
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+    gap: 20px
+    margin-bottom: 60px
+
+.placesFilters
+    display: flex
+    flex-direction: row
+    gap: 20px
+    margin-bottom: 40px
+    &__item
+        padding: 10px
+        border: 2px solid $color1
+        color: $color1
+        transition: 0.2s ease-in-out
+        &:hover
+            transition: 0.2s ease-in-out
+            cursor: pointer
+            background-color: $color1
+            color: $textColorLight
+        &--active
+            background-color: $color1
+            color: $textColorLight
+.cardPlace
+    width: 388px
+    height: 450px
+    font-size: 24px
+    font-weight: bold
+    background-color: $color2
+    color: $textColorLight
+    overflow: hidden
+    
+    &:hover
+        color: $color1
+        cursor: pointer
+        
+        .cardPlace__img 
+            width: 105%
+            height: 105%
+            margin: -2.5%
+            transition: 0.5s ease-in-out
+        .cardPlace__name
+            background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.6))
+            top: -460px
+            transition: 0.5s ease-in-out
+    &__img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        transition: 0.5s ease-in-out
+    &__name
+        transition: 0.5s ease-in-out
+        width: 388px
+        height: 450px
+        margin: 0
+        padding: 0
+        position: relative
+        top: -458px
+        text-align: center
+        background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5))
+        display: flex
+        align-items: end
+        justify-content: center
+        & p
+            position: relative
+            top: -25px
+
+
+.places__paginate
+    width: $containerSize
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    align-items: center
+    margin-bottom: 60px
+    font-size: 30px
+    &__button
+        width: 60px
+        height: 60px
+        border-radius: 50%
+        border: none
+        background-color: $textColorDark
+        color: $textColorLight
+        display: flex
+        justify-content: center
+        align-items: start
+        font-size: 40px
+        &:hover
+            cursor: pointer
+            color: $color1
+        &--inactive
+            opacity: 0.5
+            &:hover
+                cursor: default
+                color: $textColorLight
+    &__count
+        font-weight: bold
