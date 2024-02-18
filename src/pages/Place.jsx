@@ -25,7 +25,7 @@ function Place() {
 
     useEffect(() => {
       loadData()
-    }, [])
+    }, [place])
 
     const loadData = async() => {
       try{
