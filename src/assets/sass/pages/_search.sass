@@ -1,0 +1,57 @@
+@use '../utils/_variables' as *
+
+.results
+    width: 100%
+    display: flex
+    gap: 4%
+    margin-bottom: 60px
+    @media (max-width: $tabletSize)
+        flex-direction: column
+    &__bloc
+        width: 48%
+        display: flex
+        flex-direction: column
+        justify-content: start
+        align-items: center
+        gap: 20px
+        @media (max-width: $tabletSize)
+            width: 100%
+            margin-bottom: 40px
+        &__title
+            text-align: center
+            font-size: 35px
+            @media (max-width: $tabletSize)
+                font-size: 30px
+            @media (max-width: $mobileSize)
+                font-size: 25px
+        &__container
+            display: flex
+            flex-direction: column
+            gap: 20px
+            @media (max-width: $tabletSize)
+                flex-direction: row
+                flex-wrap: wrap
+                justify-content: center
+        &__link
+            width: 100%
+
+.resultCard
+    width: 100%
+    display: flex
+    flex-direction: row
+    align-items: start
+    padding-bottom: 40px
+    border-bottom: 0.5px solid $color2
+    &:hover
+        cursor: pointer
+        & .resultCard__content__title
+            $color: $textColorDark
+    &__img
+        width: 25%
+    &__content
+        min-width: 75%
+        &__title
+            font-size: 25px
+            color: $color1
+        &__description
+            color: $textColorDark

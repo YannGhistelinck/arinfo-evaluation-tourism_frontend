@@ -11,12 +11,14 @@
     top: 0
     left: 0
     z-index: 5
+        
     
     
     &__closeButton
         border: none
         background-color: rgb(250,250,250)
         align-self: end
+            
     &__closeImg
         width: 40px
         &:hover
@@ -32,86 +34,93 @@
         transition: 120s ease-in-out
         display: flex
         flex-direction: column
+
+.searchModal
+    width: 100vw
+    height: 100vh
+    display: none
+    background-color: rgba(0,0,0,0.75)
+    justify-content: center
+    align-items: center
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 5
+    &__closeButton
+        border: none
+        background-color: none
+        align-self: end
+        font-size: 25px
+        color: $textColorLight
+        transition: 0.2s ease-in-out
+        position: relative
+        top: 45px
+        @media (max-width: $mobileSize)
+            position: fixed
+            top: 15px
+            right: 25px
+            font-size: 45px
         &:hover
+            transition: 0.2s ease-in-out
+            cursor: pointer
+            color: $color1
+    &__content
+        width: 40%
+        max-height: 50vh
+        padding: 20px
+        overflow: scroll
+        background-color: none
+        border-radius: 8px
+        transition: 120s ease-in-out
+        display: flex
+        flex-direction: column
+        @media (max-width: $mobileSize)
+            max-height: initial
+            width: 90%
+            gap: 10vh
+        & form
+            display: flex
+            flex-direction: column
+    &__label
+        color: $textColorLight
+        font-weight: bold
+        font-size: 30px
+    &__label::after
+        font-size: 40px
+        content: '.'
+        color: $color1
+    &__input
+        height: 50px
+        border-radius: 0
+        outline: none
+        border: none
+        padding: 0 40px 0 20px
+        font-size: 25px
+    &__submit
+        border: none
+        background-color: rgba(0,0,0,0)
+        width: fit-content
+        align-self: end
+        position: relative
+        right: 5px
+        bottom: 39px
+        &__icon
+            color: $color1
+            font-size: 25px
+            &:hover
+                color: $textColorDark
+                cursor: pointer
 
-// textarea
-//     resize: none
-//     font-size: 18px
-
-// input
-//     color: $color1
-//     border-radius: 3px
-//     border: 1px solid black
-//     font-size: 15px
-// input:focus
-//     outline: 1px solid $color3
-
-// .newArticleModal
-//     &__form
-//         display: flex
-//         flex-direction: column
-//         &__label
-//         &__textarea
-//             min-height: 100px
-
-
-
-// .newMessageModal
-//     &__form
-//         display: flex
-//         flex-direction: column
-//         &__label
-//             font-size: 20px
-//         &__textarea
-//             border-radius: 5px 5px 0 5px
-//             outline: none
-//             border: 1px solid $color1
-//             margin-top: 20px
-//             height: 30vh
-//             font-size: 18px
-//         &__submit
-//             border-radius: 10px
-//             border: none
-//             background-color: $color1
-//             color: $colorLight
-//             padding: 10px
-//             font-size: 18px
-//             margin-top: 20px
-//             &:hover 
-//                 cursor: pointer
-//                 background-color: $color2
-//     &__warning
-//         color: $colorGrey
-//         font-size: 14px
-
-// .updateArticleForm
-//     display: flex
-//     flex-direction: column
-//     &__label
-//         font-size: 20px
-//     &__textarea
-//         border-radius: 5px 5px 0 5px
-//         outline: none
-//         border: 1px solid $color1
-//         margin-top: 20px
-//         height: 20vh
-//         font-size: 18px
-//     &__submit
-//         border-radius: 10px
-//         border: none
-//         background-color: $color1
-//         color: $colorLight
-//         padding: 10px
-//         font-size: 18px
-//         margin-top: 20px
-//         &:hover 
-//             cursor: pointer
-//             background-color: $color2
-//         &--delete
-//             background-color: rgb(160, 11, 11)
-//             &:hover
-//                 background-color: rgb(180, 31, 31)
-
+    &__interactive
+        display: none
+        @media (max-width: $mobileSize)
+            display: initial
+            color: $textColorLight
+            font-size: 30px
+            font-weight: bold
+            text-align: center
+            &:hover
+                color: $color1
 
 
 

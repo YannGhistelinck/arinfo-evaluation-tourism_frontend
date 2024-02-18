@@ -8,6 +8,10 @@ import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Places from "./pages/Places";
 import Place from "./pages/Place";
+import Publications from "./pages/Publications";
+import Publication from "./pages/Publication";
+import Search from "./pages/Search";
+import InteractiveSearch from "./pages/InteractiveSearch";
 
 
 //COMPONENTS
@@ -31,6 +35,9 @@ function App() {
   const [subcategories, setSubcategories] = useState([])
   const [places, setPlaces] = useState([])
   const [selectedPlace, setSelectedPlace] = useState(null)
+  const [search, setSearch] = useState('')
+  const [bounds, setBounds] = useState()
+  const [mobileMenuButton, setMobileMenuButton] = useState('closed')
  
 
   const isConnected = async(data) => {
@@ -83,21 +90,37 @@ function App() {
 
 
   return (
-    <GlobalContext.Provider value={{token, setToken, setUrl, user, setUser, isAdmin, setIsAdmin, url, categories, setCategories, subcategories, setSubcategories, places, setPlaces, selectedPlace, setSelectedPlace}}>
+    <GlobalContext.Provider value={{
+      token, setToken, 
+      url, setUrl, 
+      user, setUser, 
+      isAdmin, setIsAdmin, 
+      categories, setCategories, 
+      subcategories, setSubcategories, 
+      places, setPlaces, 
+      selectedPlace, setSelectedPlace, 
+      search, setSearch,
+      bounds, setBounds,
+      mobileMenuButton, setMobileMenuButton
+    }}>
       {
         isLoaded ? 
         <Router>
         {isAdmin ? <AdminHeader/> : null}
         { url !== "admin" ? <Header/> : null}
         { url !== "admin" ? <Submenu/> : null}
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/lieux" element={<Places/>} />
-          <Route path="/lieu" element={<Place/>} />
-          <Route path="/admin/*" element={<Admin/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/*" element={<Home/>} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/lieux" element={<Places/>} />
+            <Route path="/lieu" element={<Place/>} />
+            <Route path='/blog' element={<Publications/>} />
+            <Route path='/publication' element={<Publication/>} />
+            <Route path='/recherche' element={<Search/>} />
+            <Route path="/recherche-interactive" element={<InteractiveSearch/>} />
+            <Route path="/admin/*" element={<Admin/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/*" element={<Home/>} />
+          </Routes>
 
         {url !== "admin" ? <Footer/> : null}
 

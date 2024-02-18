@@ -1,6 +1,10 @@
 import axios from "axios"
 
-const API_URL = "http://127.0.0.1:8000/api"
+// const API_URL = "http://127.0.0.1:8000/api"
+export const API_URL = "http://api-tourism.yann-ghistelinck.fr/api"
+
+// export const API_STORAGE = "http://127.0.0.1:8000/storage/uploads/"
+export const API_STORAGE = "http://api-tourism.yann-ghistelinck.fr/storage/uploads/"
 
 const API_ROUTES={
     CATEGORIES: `${API_URL}/categories`,
@@ -233,10 +237,11 @@ export const API_FUNCTIONS={
         }
     },
     // PUBLICATIONS
-    allPublications: async()=>{
+    allPublications: async(query)=>{
+        
         try{
-            const response = await axios.get(API_ROUTES.PUBLICATIONS)
-            return response
+            const response = await axios.get(API_ROUTES.PUBLICATIONS, {params: query})
+            return response.data
         }catch(e){
             console.error(e)
         }

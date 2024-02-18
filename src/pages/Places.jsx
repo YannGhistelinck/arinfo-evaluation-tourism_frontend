@@ -3,11 +3,18 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { GlobalContext } from '../contexts/GlobalContext'
 import { API_FUNCTIONS } from '../utils/apiFunctions'
+import { autoScroll } from '../utils/functions'
 
 import CardPlace from '../components/CardPlace'
 import Map from '../components/Map'
 
+
+
 function Places() {
+  useEffect(() => {
+    autoScroll()
+  }, [])
+  
   const location = useLocation()
   const [filter, setFilter] = useState()
 
@@ -48,16 +55,25 @@ function Places() {
       }
     }
 
+    
+
+    
   return (
     <div className='mainContainer'>
         <div className='topLink'><Link to="/">Accueil</Link> - <span>Les lieux à visiter</span></div>
         <h1>Les lieux à visiter</h1>
         <p className='placesDescription'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <div className='placesFilters'>
-          <div onClick={() => setFilter(null)} className={filter === null ? 'placesFilters__item placesFilters__item--active' : 'placesFilters__item'}>Tous</div>
+          <div onClick={() => {
+            setFilter(null)
+            setCurrentPlacePage(1)
+            }} className={filter === null ? 'placesFilters__item placesFilters__item--active' : 'placesFilters__item'}>Tous</div>
           {
             subcategories.filter(subcategory => subcategory.category_id === 1).map((subcategory, index) => (
-              <div key={index} onClick={() => setFilter(subcategory.id)} className={filter === subcategory.id ? 'placesFilters__item placesFilters__item--active' : 'placesFilters__item'}>{subcategory.subcategory_name}</div>
+              <div key={index} onClick={() => {
+                setFilter(subcategory.id) 
+                setCurrentPlacePage(1)
+              }} className={filter === subcategory.id ? 'placesFilters__item placesFilters__item--active' : 'placesFilters__item'}>{subcategory.subcategory_name}</div>
             ))
           }
         </div>

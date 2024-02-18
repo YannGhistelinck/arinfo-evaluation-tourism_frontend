@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../contexts/GlobalContext'
 import {AdminContext } from '../contexts/AdminContext'
 import { API_FUNCTIONS } from '../utils/apiFunctions'
+import { autoScroll } from '../utils/functions'
 
 import AdminSideMenu from '../components/AdminSideMenu'
 import AdminRedactors from '../components/adminSubpages/AdminRedactors'
@@ -13,6 +14,10 @@ import AdminCategories from '../components/adminSubpages/AdminCategories'
 import AdminSubcategories from '../components/adminSubpages/AdminSubcategories'
 
 function Admin() {
+    useEffect(() => {
+        autoScroll()
+    }, [])
+
     const navigate = useNavigate()
     const{token, setToken, setUrl, setIsAdmin, isAdmin, categories, user, setUser}=useContext(GlobalContext)
     const [currentAdminContent, setCurrentAdminContent]=useState(localStorage.getItem('currentAdminContent') || 'redactors')

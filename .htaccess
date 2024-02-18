@@ -1,0 +1,32 @@
+
+#----------------------------------------------------------------cp:ppd
+# Section managed by cPanel: Password Protected Directories     -cp:ppd
+# - Do not edit this section of the htaccess file!              -cp:ppd
+#----------------------------------------------------------------cp:ppd
+
+#----------------------------------------------------------------cp:ppd
+# End section managed by cPanel: Password Protected Directories -cp:ppd
+#----------------------------------------------------------------cp:ppd
+
+RewriteEngine On
+RewriteBase /
+
+
+# Redirect wrong URL to "/*" Route with Error component
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.html [L]
+
+
+    # Authorize page refresh of the actual page
+
+# Verify if mod_rewrite module of the server is ON 
+# Verify if URL requested isn't an existing file
+# Verify if URL requested isn't an existinf folder
+# On refreshing the page, redirect the user to the last URL
+
+# <IfModule mod_rewrite.c> 
+#   RewriteCond %{REQUEST_FILENAME} !-f 
+#   RewriteCond %{REQUEST_FILENAME} !-d 
+#   RewriteRule ^(.*)$ index.html [L] 
+# </IfModule> 

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 import { GlobalContext } from '../contexts/GlobalContext'
 
-const openMenu = (id) => {
+const openSubmenu = (id) => {
   document.getElementById(id).style.top = "100px"
   document.getElementById("header").style.backgroundColor = "#222222FF"
 }
- const closeMenu = (id) => {
+ const closeSubmenu = (id) => {
   document.getElementById(id).style.top = '-100vh'
   document.getElementById("header").style.backgroundColor = "initial"
  }
@@ -20,11 +20,11 @@ function Submenu() {
     <div>
         
         {categories.map((category, index) => (
-          <div key={index} id={'submenu'+category.id} className='submenu' onMouseEnter={() => openMenu('submenu'+category.id)} onMouseLeave={() => closeMenu('submenu'+category.id)}>
-              <button onClick={() => closeMenu('submenu'+category.id)} className='submenu__closeButton'>X</button>
+          <div key={index} id={'submenu'+category.id} className='submenu' onMouseEnter={() => openSubmenu('submenu'+category.id)} onMouseLeave={() => closeSubmenu('submenu'+category.id)}>
+              <button onClick={() => openSubmenu('submenu'+category.id)} className='submenu__closeButton'>🗙</button>
               <div className='submenu__container'>
                   {subcategories.filter(subcategory => subcategory.category_id === category.id).map((subcategory, index) => (
-                    <Link className='submenu__container__link' key={index} state={subcategory.id} onClick={() => closeMenu('submenu'+category.id)}>{subcategory.subcategory_name}</Link>
+                    <Link to={category.id === 1  ? '/lieux' : '/blog'} className='submenu__container__link' key={index} state={subcategory.id} onClick={() => closeSubmenu('submenu'+category.id)}>{subcategory.subcategory_name}</Link>
                   ))}
 
               </div>

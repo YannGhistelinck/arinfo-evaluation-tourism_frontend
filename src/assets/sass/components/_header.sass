@@ -2,7 +2,7 @@
 
 .header
     width: 97.8%
-    height: 100px
+    height: $headerSize
     padding: 0 1.1%
     display: flex
     flex-direction: row
@@ -12,8 +12,68 @@
     transition: 0.2s ease-in-out
     position: fixed
     z-index: 20
+    @media (max-width: $mobileSize)
+        height: calc( $headerSize - $headerReduction )
     &:hover
         transition: 0.2s ease-in-out
         background-color: $color2
+    &__menuButtons
+        width: $headerSize
+        min-width: $headerSize
+        height: $headerSize
+        background-color: $color2
+        display: none
+        align-items: center
+        justify-content: center
+        position: relative
+        left: -1.1%
+        color: $textColorLight
+        margin-right: 15px
+        @media (max-width: $tabletSize)
+            display: flex
+        @media (max-width: $mobileSize)
+            width: calc( $headerSize - $headerReduction )
+            min-width: initial
+            height: calc( $headerSize - $headerReduction )
+        &:hover
+            cursor: pointer
+            color: $color1
+        &__button
+            font-size: 20px
+            &--opened
+            &--closed
+                display: none
+                font-size: 25px
     &__logo
         height: 60px
+        @media (max-width: $mobileSize)
+            height: 50px
+
+.toolbar
+    display: flex
+    align-items: center
+    gap: 20px
+    @media (max-width: $mobileSize)
+        gap: 10px
+        margin-right: 25px
+    &__search
+        color: $textColorLight
+        font-size: 20px
+        @media (max-width: $mobileSize)
+            font-size: 25px
+        &:hover
+            color: $color1
+            cursor: pointer
+    &__link
+        font-size: 18px
+        font-weight: 900
+        color: white
+        overflow: hidden
+        display: flex
+        flex-direction: row
+        align-items: center
+        @media (max-width: $mobileSize)
+            font-size: 16px
+            display: none
+        &:hover
+            color: $color1

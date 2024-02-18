@@ -5,6 +5,7 @@ import { GlobalContext } from '../../contexts/GlobalContext'
 import { AdminContext } from '../../contexts/AdminContext'
 import { API_FUNCTIONS } from '../../utils/apiFunctions'
 import { openContent } from '../../utils/functions'
+import { API_STORAGE } from '../../utils/apiFunctions'
 
 import UpdatePublicationModal from '../modals/UpdatePublicationModal'
 import deleteButton from '../../assets/icons/trashcan-svgrepo-com.svg'
@@ -41,15 +42,18 @@ function AdminPublications() {
 
   const loadData = async()=>{
     try{
+      const query = {
+      }
       const [
         publicationsData,
-        imagesData,
+        // imagesData,
       ] = await Promise.all([
-        API_FUNCTIONS.allPublications(),
-        API_FUNCTIONS.allImages(),
+        API_FUNCTIONS.allPublications(query),
+        // API_FUNCTIONS.allImages(),
       ])
       setPublications(publicationsData.data)
-      setImages(imagesData)
+      // setImages(imagesData)
+      setImages(publicationsData.images)
     }catch(e){
       console.error(e)
     }finally{
@@ -156,7 +160,7 @@ function AdminPublications() {
                     images.filter(image => image.publication_id === publication.id).map((image, index) => 
                       <div className='adminMiniatureContainer__bloc' key={index}>
                         <div className='redTrash' onClick={() => {deleteImg(image.id)}}></div>
-                        <img src={'http://127.0.0.1:8000/storage/uploads/'+image.image_name} alt={image.image_name} className='adminMiniatureContainer__img'/>
+                        <img src={API_STORAGE+image.image_name} alt={image.image_name} className='adminMiniatureContainer__img'/>
                       </div>
                     )
                     :

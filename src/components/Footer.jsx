@@ -18,10 +18,10 @@ function Footer() {
           {
             categories.map((category, index) => (
               <div key={index} className='footer__container__infos__bloc'>
-                <Link><h2>{category.category_name}</h2></Link>
+                <Link to={category.id === 1 ? "/lieux" : "/blog"}><h2>{category.category_name}</h2></Link>
                   {
                     subcategories.filter(subcategory => subcategory.category_id === category.id).map((subcategory, index) => (
-                      <Link key={index}>{subcategory.subcategory_name}</Link>
+                      <Link key={index} state={subcategory.id} to={category.id === 1 ? '/lieux' : '/blog'}>{subcategory.subcategory_name}</Link>
                     ))
                   }
               </div>

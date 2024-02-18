@@ -9,19 +9,21 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import icon from '../assets/icons/map-marker-outlined-svgrepo-com.svg'
 import selectedIcon from '../assets/icons/map-marker-svgrepo-com.svg'
 
-function Map({places}) {
 
-    const {selectedPlace, setSelectedPlace} = useContext(GlobalContext)
+
+function Map({places, suggest, interactive}) {
+
+    const {selectedPlace, setBounds, bounds} = useContext(GlobalContext)
 
     const mapRef = useRef()
 
     const [averageLat, setAverageLat] = useState(null)
     const [averageLong, setAverageLong] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
-    let lat = 0
-    let long = 0
 
-    
+
+
+
     useEffect(() => {
 
         let totalLat = 0;
@@ -36,7 +38,7 @@ function Map({places}) {
             setAverageLong(totalLong / places.length)
 
             
-            if (mapRef.current && places.length > 0) {
+            if (mapRef.current && places.length > 0 && !interactive) {
                 const bounds = places.reduce((acc, place) => {
                   acc.push([place.place_lat, place.place_long]);
                   return acc;
@@ -45,8 +47,15 @@ function Map({places}) {
                 mapRef.current.fitBounds(bounds);
               }
         }else{
-            setAverageLat(places.place_lat)
-            setAverageLong(places.place_long)
+            
+            if(places.length !== 0 ){
+                setAverageLat(places.place_lat)
+                setAverageLong(places.place_long) 
+            }else{
+                setAverageLat(48.00774632090103)
+                setAverageLong(0.19736360674464284)
+            }
+            
         }
     }, [places])
 
@@ -59,8 +68,8 @@ function Map({places}) {
       
       const selectedMarker = new L.Icon({
         iconUrl: selectedIcon,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
+        iconSize: [38, 38],
+        iconAnchor: [20, 38],
         popupAnchor: [0, -32],
       })
       useEffect(() => {
@@ -68,11 +77,36 @@ function Map({places}) {
 
       }, [averageLat, averageLong])
 
+    useEffect(() => {
+        
+        if (mapRef.current) {
+            const map = mapRef.current
+
+            map.on('moveend', handleMoveEnd);
+            
+        }
+        
+    }, [mapRef.current]);
+
+    const handleMoveEnd = () => {
+        if (mapRef.current) {
+            const map = mapRef.current
+            setBounds(map.getBounds())
+        }
+    };
+
+    // useEffect(() => {
+    //     console.log("map bounds ", bounds)
+    // }, [bounds])
+
+
+    
+
   return (
     <div className='mapContainer'>
         {
             isLoaded ? 
-            <MapContainer center={[averageLat, averageLong]} zoom={15} ref={mapRef} scrollWheelZoom={false} className='map'>
+            <MapContainer center={[averageLat, averageLong]} ref={mapRef} zoom={15} scrollWheelZoom={false} className='map'>
                     <TileLayer
                     attribution={`&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`}
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -80,7 +114,7 @@ function Map({places}) {
                     { 
                     places.length ? 
                         places.map((place, index) => (
-                            <Marker key={index} position={[place.place_lat, place.place_long]} style={{ color: "#222222" }} icon={selectedPlace === place.id ? selectedMarker : customMarker}>
+                            <Marker key={index} position={[place.place_lat, place.place_long]} icon={selectedPlace === place.id ? selectedMarker : customMarker}>
                                 <Popup>
                                     <h2>{place.place_name}</h2>
                                     <p>{place.place_description.substr(1, 150)}{place.place_description.length > 150 ? ' [...]' : null}</p>
@@ -89,6 +123,7 @@ function Map({places}) {
                             </Marker>
                         ))
                     : 
+                        (places.length !== 0 &&
                         <Marker position={[places.place_lat, places.place_long]} icon={selectedMarker}>
                             <Popup>
                                 <h2>{places.place_name}</h2>
@@ -96,7 +131,22 @@ function Map({places}) {
                                 <Link to="/lieu" state={places}>Visiter la page</Link>
                             </Popup>
                         </Marker>
+                            )
                         
+                    }
+                    {
+                        suggest ? 
+                            suggest.map((place, index) => (
+                                <Marker key={index} position={[place.place_lat, place.place_long]} icon={selectedPlace === place.id ? selectedMarker : customMarker}>
+                                    <Popup>
+                                        <h2>{place.place_name}</h2>
+                                        <p>{place.place_description.substr(1, 150)}{place.place_description.length > 150 ? ' [...]' : null}</p>
+                                        <Link to="/lieu" state={place}>Visiter la page</Link>
+                                    </Popup>
+                                </Marker>
+                            ))
+                        :
+                            null
                     }
                     
                 </MapContainer>

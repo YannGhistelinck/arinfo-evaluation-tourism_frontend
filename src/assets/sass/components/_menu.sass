@@ -3,12 +3,29 @@
 .menu
     width: 100%
     transition: 0.5s ease-in-out
+    @media ( max-width : $tabletSize )
+        width: 350px
+        height: calc( 100vh - $headerSize )
+        position: fixed
+        left: -500px
+        top: $headerSize
+        background-color: $color2
+    @media (max-width: $mobileSize)
+        height: calc( 100vh - $headerSize + $headerReduction )
+        top: calc( $headerSize - $headerReduction )
+    @media (max-width: 500px)
+        width: 100vw
     &__container
         display: flex
         flex-direction: row
         align-items: center
         justify-content: center
         gap: 15px
+        @media (max-width: $tabletSize)
+            height: 100%
+            width: 100%
+            flex-direction: column
+            justify-content: space-around
     &__link
         font-size: 18px
         font-weight: 900
@@ -31,6 +48,8 @@
             transition: 0.2s ease-in-out
             position: absolute
             top: 70px
+            @media (max-width: $tabletSize)
+                display: none
 
 
 .submenu
@@ -46,16 +65,37 @@
     display: flex
     flex-direction: column
     align-items: center
+    @media ( max-width: $tabletSize )
+        display: none
+        
     &__container
-        width: $containerSize
+        width: 90%
+        max-width: $containerSize
         display: grid
         gap: 40px
         grid-template-columns: 1fr 1fr
+        @media (max-width: $containerSize)
+            gap: 30px
+        @media (max-width: $tabletSize)
+            gap: 20px
+        @media (max-width: $mobileSize)
+            height: calc( 100vh - $headerSize )
+            display: flex
+            flex-direction: column
+            align-items: center
+            justify-content: space-around
+        
         &__link
             font-size: 40px
             margin-bottom: 40px
             color: $textColorLight
             opacity: 0.5
+            @media (max-width: $containerSize)
+                font-size: 30px
+                margin-bottom: 30px
+            @media (max-width: $tabletSize)
+                font-size: 25px
+                margin-bottom: 25px
             &:hover
                 opacity: 1
 
@@ -70,6 +110,10 @@
         border-radius: 50%
         background-color: $textColorLight
         color: $textColorDark
+        display: flex
+        flex-direction: row
+        align-items: start
+        justify-content: center
         &:hover
             color: $color1
             cursor: pointer

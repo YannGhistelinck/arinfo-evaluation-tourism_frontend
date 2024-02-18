@@ -11,9 +11,12 @@
             justify-content: start
             padding-left: 20%
             gap: 9%
-            height: 500px
+            min-height: 500px
             background: url('../../images/map-footer.png') no-repeat bottom right $color2
-            background-size: contain
+            background-size: 25% 
+            @media (max-width: $mobileSize)
+                justify-content: center
+                flex-direction: column
             &__bloc
                 margin-top: 55px
             & h2

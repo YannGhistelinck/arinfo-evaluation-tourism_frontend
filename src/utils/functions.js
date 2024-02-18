@@ -12,8 +12,6 @@ export const clickOutModal = (e, id) => {
             closeContent(id)
         }
     }
-    
-    
 }
 
 export const listenEscapeKey = (id)=>{
@@ -23,3 +21,12 @@ export const listenEscapeKey = (id)=>{
         }
     })
 }
+
+
+export const autoScroll = () => {
+    if (window.scrollY > 0) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+}
+
+

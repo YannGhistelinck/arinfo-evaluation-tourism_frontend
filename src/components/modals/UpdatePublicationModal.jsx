@@ -6,6 +6,7 @@ import { GlobalContext } from '../../contexts/GlobalContext'
 import { AdminContext } from '../../contexts/AdminContext'
 import { API_FUNCTIONS } from '../../utils/apiFunctions'
 import cross from '../../assets/icons/cross.svg'
+import { API_STORAGE } from '../../utils/apiFunctions'
 
 
 function UpdatePublicationModal({publication, publicationImages}) {
@@ -110,7 +111,7 @@ function UpdatePublicationModal({publication, publicationImages}) {
                         {currentImages.map((image, index) => (
                             <div className='adminMiniatureContainer__bloc' key={index}>
                                 <div className='redTrash' onClick={() => {deleteImg(image.id)}}></div>
-                                <img src={'http://127.0.0.1:8000/storage/uploads/'+image.image_name} alt={image.image_name} className='adminMiniatureContainer__img'/>
+                                <img src={API_STORAGE+image.image_name} alt={image.image_name} className='adminMiniatureContainer__img'/>
                             </div>
                         ))}
                     </div>
